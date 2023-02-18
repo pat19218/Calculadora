@@ -45,3 +45,30 @@ class Interfaz:
         botones[16].grid(row=5,column=0,columnspan=4)
         
         return
+    
+    #Crea un botón mostrando el valor pasado por parámetro
+    def crearBoton(self, valor, escribir=True, ancho=9, alto=1):
+        return Button(self.ventana, text=valor, width=ancho, height=alto, font=("Helvetica",15), command=lambda:self.click(valor,escribir))
+
+
+    #Controla el evento disparado al hacer click en un botón
+    def click(self, texto, escribir):
+        #Si el parámetro 'escribir' es True, entonces el parámetro texto debe mostrarse en pantalla. Si es False, no.
+        if not escribir:
+            #Sólo calcular si hay una operación a ser evaluada y si el usuario presionó '='
+            if texto=="=" and self.operacion!="":
+                #Reemplazar el valor unicode de la división por el operador división de Python '/'
+                self.operacion=re.sub(u"\u00F7", "/", self.operacion)
+                resultado=str(eval(self.operacion))
+                self.operacion=""
+                self.limpiarPantalla()
+                self.mostrarEnPantalla(resultado)
+            #Si se presionó el botón de borrado, limpiar la pantalla
+            elif texto==u"\u232B":
+                self.operacion=""
+                self.limpiarPantalla()
+        #Mostrar texto
+        else:
+            self.operacion+=str(texto)
+            self.mostrarEnPantalla(texto)
+        return

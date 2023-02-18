@@ -86,3 +86,7 @@ class Interfaz:
             self.operacion+=str(texto)
             self.mostrarEnPantalla(texto)
         return
+#Aun no lo subiere
+ventana_principal=Tk()
+calculadora=Interfaz(ventana_principal)
+ventana_principal.mainloop()
